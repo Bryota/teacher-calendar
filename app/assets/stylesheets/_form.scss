@@ -1,0 +1,11 @@
+.form-group {
+    text-align: left;
+    width: 70%;
+    margin: 0 auto 30px;
+    label {
+        width: 30%;
+    }
+    input, select {
+        width: 70%;
+    }
+}

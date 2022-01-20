@@ -1,0 +1,21 @@
+.show {
+    &__name {
+        font-size: 30px;
+        padding-top: 30px;
+        margin-bottom: 0;
+    }
+
+    &__place {
+        font-size: 20px;
+    }
+
+    &__title {
+        font-size: 25px;
+    }
+
+    &__content {
+        width: 60%;
+        margin: 0 auto 30px;
+        text-align: left;
+    }
+}

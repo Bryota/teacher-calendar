@@ -1,0 +1,51 @@
+.bg-primary {
+    background-color: #EEFEE7 !important;
+}
+.bg-yellow {
+    background-color: #FFF6A3 !important;
+}
+.bg-reserve {
+    background-color: #F79A9A !important;
+}
+.bg-blue {
+    background-color: #B9C8FF !important;
+}
+.btn {
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 30px;
+    display: block;
+    color: black;
+
+    &__half {
+        @extend .btn;
+        width: 30%;
+    }
+
+    &__reserve {
+        background-color: #F79A9A;
+    }
+    &__update {
+        background-color: #FFF6A3;
+    }
+    &__delete {
+        background-color: #B9C8FF;
+    }
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.h-100vh {
+    height: 100vh;
+}
+
+.error {
+    margin-bottom: 5px;
+    color: red;
+}
+
+p, h2, label, h1 {
+    color: #000;
+}

@@ -1,0 +1,17 @@
+.top {
+    &__btn {
+        width: 80%;
+        margin: 0 auto;
+        border-radius: 30px;
+        display: block;
+        color: black;
+
+        &__reserve {
+            background-color: #F79A9A;
+        }
+    }
+
+    &__btn:hover {
+        text-decoration: none;
+    }
+}

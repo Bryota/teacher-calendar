@@ -1,0 +1,16 @@
+.complete {
+    &__content {
+        padding-top: 20px;
+        font-size: 30px;
+    }
+    &__password {
+        font-size: 15px;
+        border: 1px black solid;
+        padding: 30px 10px;
+        width: 60%;
+        margin: 0 auto 30px;
+    }
+    &__text {
+        font-size: 15px;
+    }
+}

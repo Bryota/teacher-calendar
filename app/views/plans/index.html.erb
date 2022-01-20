@@ -1,0 +1,17 @@
+<div class="bg-primary">
+    <h1 class="text-center">teacher</h1>
+    <%= month_calendar events: @plans do |date, plans| %>
+        <%= date.day %>
+        <% if plans.size > 0 %>
+        <% plans.each do |plan| %>
+            <div class="text-center">
+                <p><%= plan.name %></p>
+                <p><%= plan.title %></p>
+            </div>
+        <%= link_to ' 詳細', plan_path(plan.id), class: 'btn btn__update mb-1'%>
+        <% end %>
+        <% else %>
+        <%= link_to '予約', new_plan_path(date: date), class: 'btn btn__reserve' %>
+        <% end %>
+    <% end %>
+</div>

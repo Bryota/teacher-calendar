@@ -1,0 +1,27 @@
+<div class="bg-primary pt-5 h-100vh">
+    <div class="bg-yellow text-center">
+        <h2 class="pt-2 pb-2">予約更新</h2>
+    </div>
+    <div class="text-center container bg-white mt-5 pb-5">
+        <%= form_for @plan do |f| %>
+            <div class="form-group d-flex pt-4">
+                <%= f.label :name, '氏名'%>
+                <%= f.text_field :name, class: 'form-control' %>
+            </div>
+            <div class="form-group d-flex">
+                <%= f.label :title, '相談概要'%>
+                <%= f.select :title, { '卒論の相談': 'bachelor_thesis', '履修の相談': 'course', '授業の相談': 'class', 'その他': 'others'}, {include_blank: '選択してください'}, class: 'form-control' %>
+            </div>
+            <div class="form-group d-flex">
+                <%= f.label :place, '場所'%>
+                <%= f.select :place, { 'zoom': 'zoom', '学校': 'school', 'その他': 'others'}, {include_blank: '選択してください'}, class: 'form-control' %>
+            </div>
+            <div class="form-group d-flex">
+                <%= f.label :content, '相談詳細'%>
+                <%= f.text_area :content, class: 'form-control', rows: 10 %>
+            </div>
+            <%= f.hidden_field :start_time, :value => @plan.start_time %>
+            <%= f.submit '更新', class: 'btn btn__update' %>
+        <% end %>
+    </div>
+</div>
