@@ -17,7 +17,9 @@ class PlansController < ApplicationController
     if @plan.save
       redirect_to plans_path
     else
-      redirect_to new_plan_path
+      redirect_to new_plan_path(date: params[:plan][:start_time]), flash: {
+        errors: @plan.errors.full_messages
+      }
     end
   end
 
@@ -30,7 +32,9 @@ class PlansController < ApplicationController
     if @plan.update(plan_params)
       redirect_to plans_path
     else
-      redirect_to :back
+      redirect_to edit_plan_path(@plan), flash: {
+        errors: @plan.errors.full_messages
+      }
     end
   end
 
