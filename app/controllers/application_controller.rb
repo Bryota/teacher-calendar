@@ -7,6 +7,12 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    def check_log_in_as_teacher
+        if !logged_in_as_teacher?
+            redirect_to teachers_login_path
+        end
+    end
+
     def check_log_in_user_or_teacher
         if logged_in? || logged_in_as_teacher?
         else

@@ -1,4 +1,5 @@
 class TeachersController < ApplicationController
+  before_action :check_log_in_as_teacher
   before_action :current_teacher
   def index
     @teachers = Teacher.all
