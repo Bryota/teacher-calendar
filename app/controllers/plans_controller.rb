@@ -1,6 +1,13 @@
 class PlansController < ApplicationController
+  before_action :check_log_in_as_user, except:[:index]
+  before_action :check_log_in_user_or_teacher, only:[:index]
+  before_action :current_user, only:[:new, :create]
   def index
-    @plans = Plan.all
+    if params[:teacher_id].nil?
+      redirect_to teachers_path
+    end
+    @plans = Plan.where(teacher_id: params[:teacher_id])
+    @teacher = Teacher.find(params[:teacher_id])
   end
 
   def show
@@ -9,13 +16,15 @@ class PlansController < ApplicationController
 
   def new
     @plan = Plan.new
+    @user = @current_user
     @date = params[:date]
+    @teacher_id = params[:teacher_id]
   end
 
   def create
     @plan = Plan.new(plan_params)
     if @plan.save
-      redirect_to plans_path
+      redirect_to plans_path(teacher_id: params[:plan][:teacher_id])
     else
       redirect_to new_plan_path(date: params[:plan][:start_time]), flash: {
         errors: @plan.errors.full_messages
@@ -25,6 +34,7 @@ class PlansController < ApplicationController
 
   def edit
     @plan = Plan.find_by(id: params[:id])
+    @user = @current_user
   end
 
   def update
@@ -46,6 +56,6 @@ class PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:name, :title, :place, :content, :start_time)
+    params.require(:plan).permit(:name, :title, :place, :content, :start_time, :teacher_id)
   end
 end

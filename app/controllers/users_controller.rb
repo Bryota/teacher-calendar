@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+  before_action :check_log_in_as_user, except:[:new]
   def index
     @users = User.all
+  end
+
+  def show
+    @user = User.find_by(id: params[:id])
   end
 
   def new
@@ -10,12 +15,19 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to users_path
+      log_in @user
+      redirect_to @user
     else
       redirect_to new_user_url, flash: {
         errors: @user.errors.full_messages
       }
     end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    @current_user = nil
+    redirect_to login_path
   end
 
   private

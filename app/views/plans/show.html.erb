@@ -4,8 +4,8 @@
     </div>
     <div class="text-center container bg-white mt-5 pb-5">
         <p class="show__name"><%= @plan.title %></p>
-        <p class="show__place">@<%= @plan.place %></p>
-        <p class="show__title"><%= @plan.title %></p>
+        <p class="show__place">@<%= placeToString @plan.place %></p>
+        <p class="show__title"><%= titleToString @plan.title %></p>
         <p class="show__content"><%= @plan.content %></p>
         <div class="d-flex justify-center">
             <%= link_to '更新', edit_plan_path(@plan.id), class: 'btn__half btn__update' %>

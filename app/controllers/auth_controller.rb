@@ -5,7 +5,8 @@ class AuthController < ApplicationController
   def check_user
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
-      redirect_to plans_path
+      log_in user
+      redirect_to user
     else
       redirect_to login_path, flash: { 
         errors: [ "invalid email or password" ]

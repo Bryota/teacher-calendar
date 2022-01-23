@@ -5,10 +5,6 @@
     <div class="text-center container bg-white mt-5 pb-5">
         <%= form_with model: @plan, local: true do |f| %>
             <%= render 'common/error' %>
-            <div class="form-group d-flex pt-4">
-                <%= f.label :name, '氏名'%>
-                <%= f.text_field :name, class: 'form-control' %>
-            </div>
             <div class="form-group d-flex">
                 <%= f.label :title, '相談概要'%>
                 <%= f.select :title, { '卒論の相談': 'bachelor_thesis', '履修の相談': 'course', '授業の相談': 'class', 'その他': 'others'}, {include_blank: '選択してください'}, class: 'form-control' %>
@@ -21,7 +17,9 @@
                 <%= f.label :content, '相談詳細'%>
                 <%= f.text_area :content, class: 'form-control', rows: 10 %>
             </div>
+            <%= f.hidden_field :name, :value => @user.name %>
             <%= f.hidden_field :start_time, :value => DateTime.parse(@date) %>
+            <%= f.hidden_field :teacher_id, :value => @teacher_id %>
             <%= f.submit '予約', class: 'btn btn__reserve' %>
         <% end %>
     </div>

@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   post 'login', to: "auth#check_user"
   resources :users
   resources :plans
+  resources :teachers
 end
