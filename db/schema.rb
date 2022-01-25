@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_23_121234) do
+ActiveRecord::Schema.define(version: 2022_01_24_140527) do
 
   create_table "plans", force: :cascade do |t|
     t.string "name"
     t.string "title"
     t.string "place"
     t.string "content"
-    t.datetime "start_time"
+    t.datetime "start_time", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "teacher_id"
@@ -27,6 +27,9 @@ ActiveRecord::Schema.define(version: 2022_01_23_121234) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
+    t.string "password_digest"
+    t.index ["email"], name: "index_teachers_on_email", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,6 +38,7 @@ ActiveRecord::Schema.define(version: 2022_01_23_121234) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

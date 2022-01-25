@@ -2,7 +2,7 @@
 <ul>
     <% if @users.size > 0 %>
         <% @users.each do |user| %>
-            <li><%= user.name %></li>
+            <li><%= link_to user.name, user_path(user.id) %></li>
         <% end %>
     <% end %>
 </ul>

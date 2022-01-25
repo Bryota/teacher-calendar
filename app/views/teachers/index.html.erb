@@ -2,12 +2,7 @@
 <ul>
     <% if @teachers.size > 0 %>
         <% @teachers.each do |teacher| %>
-            <li><%= link_to teacher.name, plans_path(teacher_id: teacher.id) %></li>
-            <% if !current_teacher.nil? %>
-                <% if current_teacher.id == teacher.id %>
-                    <%= button_to 'ログアウト', teacher_path(teacher.id), method: :delete %>
-                <% end %>
-            <% end %>
+            <li><%= link_to teacher.name, teacher_path(teacher.id) %></li>
         <% end %>
     <% end %>
     <%= link_to '新規追加', new_teacher_path, class: 'btn btn__reserve' %>

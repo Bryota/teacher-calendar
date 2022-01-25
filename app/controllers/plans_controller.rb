@@ -1,10 +1,20 @@
 class PlansController < ApplicationController
-  before_action :check_log_in_as_user, except:[:index]
-  before_action :check_log_in_user_or_teacher, only:[:index]
+  before_action :check_log_in_as_user, except:[:index, :all]
+  before_action :check_log_in_user_or_teacher, only:[:index, :all]
   before_action :current_user, only:[:new, :create]
+  before_action :current_teacher
+  def all
+    @teachers = Teacher.all
+  end
+
   def index
     if params[:teacher_id].nil?
       redirect_to teachers_path
+    end
+    if !@current_teacher.nil?
+      if @current_teacher.id != params[:teacher_id].to_i
+        redirect_to teachers_path
+      end
     end
     @plans = Plan.where(teacher_id: params[:teacher_id])
     @teacher = Teacher.find(params[:teacher_id])

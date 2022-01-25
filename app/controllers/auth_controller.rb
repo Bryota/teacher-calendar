@@ -18,13 +18,13 @@ class AuthController < ApplicationController
   end
 
   def check_teacher
-    teacher = Teacher.find_by(name: params[:name])
+    teacher = Teacher.find_by(email: params[:email])
     if teacher
       log_in_as_teacher teacher
       redirect_to teachers_path
     else
       redirect_to teachers_login_path, flash: { 
-        errors: [ "invalid name" ]
+        errors: [ "invalid email" ]
       }
     end
   end

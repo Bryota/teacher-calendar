@@ -1,0 +1,8 @@
+<h1>カレンダー一覧</h1>
+<ul>
+    <% if @teachers.size > 0 %>
+        <% @teachers.each do |teacher| %>
+            <li><%= link_to teacher.name, plans_path(teacher_id: teacher.id) %></li>
+        <% end %>
+    <% end %>
+</ul>

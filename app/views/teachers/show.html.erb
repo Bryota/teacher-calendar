@@ -1,10 +1,13 @@
 <div class="bg-primary pt-5 h-100vh">
     <div class="bg-yellow text-center">
         <h2 class="pt-2 pb-2"><%= @teacher.name %></h2>
+        <h2 class="pt-2 pb-2"><%= @teacher.email %></h2>
     </div>
     <div class="text-center container bg-white mt-5 pb-5">
         <div class="d-flex justify-center">
-            <%= button_to 'ログアウト', user_path(@teacher.id), class: 'btn__half btn__delete', method: :delete %>
+            <% if current_teacher.id == @teacher.id %>
+                <%= button_to 'ログアウト', teacher_path(@teacher.id), class: 'btn__half btn__delete', method: :delete %>
+            <% end %>
         </div> 
     </div>
 </div>

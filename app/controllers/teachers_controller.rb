@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :check_log_in_as_teacher
+  before_action :check_log_in_as_teacher, except:[:new, :create]
   before_action :current_teacher
   def index
     @teachers = Teacher.all
@@ -28,11 +28,11 @@ class TeachersController < ApplicationController
   def destroy
     session[:teacher_id] = nil
     @current_teacher = nil
-    redirect_to teachers_path
+    redirect_to teachers_login_path
   end
 
   private
     def teacher_params
-      params.require(:teacher).permit(:name)
+      params.require(:teacher).permit(:name, :email, :password, :password_confirmation)
     end
 end

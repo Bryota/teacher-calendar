@@ -7,7 +7,9 @@
     </div>
     <div class="text-center container bg-white mt-5 pb-5">
         <div class="d-flex justify-center">
-            <%= button_to 'ログアウト', user_path(@user.id), class: 'btn__half btn__delete', method: :delete %>
+            <% if current_user.id == @user.id %>
+                <%= button_to 'ログアウト', user_path(@user.id), class: 'btn__half btn__delete', method: :delete %>
+            <% end %>
         </div> 
     </div>
 </div>
