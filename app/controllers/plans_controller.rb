@@ -1,7 +1,7 @@
 class PlansController < ApplicationController
-  before_action :check_log_in_as_user, except:[:index, :all]
-  before_action :check_log_in_user_or_teacher, only:[:index, :all]
-  before_action :current_user, only:[:new, :create]
+  before_action :check_log_in_as_user, except:[:index, :all, :show]
+  before_action :check_log_in_user_or_teacher, only:[:index, :all, :show]
+  before_action :current_user, only:[:new, :create, :edit, :update, :delete]
   before_action :current_teacher
   def all
     @teachers = Teacher.all
@@ -22,6 +22,9 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.find_by(id: params[:id])
+    if logged_in?
+      @user = @current_user
+    end
   end
 
   def new
@@ -29,6 +32,9 @@ class PlansController < ApplicationController
     @user = @current_user
     @date = params[:date]
     @teacher_id = params[:teacher_id]
+    if !Plan.find_by(start_time: DateTime.parse(@date), teacher_id: @teacher_id.to_i).nil?
+      redirect_to plans_path(teacher_id: @teacher_id)
+    end
   end
 
   def create
@@ -50,7 +56,7 @@ class PlansController < ApplicationController
   def update
     @plan = Plan.find_by(id: params[:id])
     if @plan.update(plan_params)
-      redirect_to plans_path
+      redirect_to plans_path(teacher_id: params[:plan][:teacher_id])
     else
       redirect_to edit_plan_path(@plan), flash: {
         errors: @plan.errors.full_messages
@@ -59,13 +65,14 @@ class PlansController < ApplicationController
   end
 
   def destroy
-    Plan.find(params[:id]).destroy
-    redirect_to plans_path
+    plan = Plan.find(params[:id])
+    plan.destroy
+    redirect_to plans_path(teacher_id: plan.teacher_id)
   end
 
   private
 
   def plan_params
-    params.require(:plan).permit(:name, :title, :place, :content, :start_time, :teacher_id)
+    params.require(:plan).permit(:name, :title, :place, :content, :start_time, :teacher_id, :user_id)
   end
 end

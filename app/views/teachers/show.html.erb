@@ -6,7 +6,10 @@
     <div class="text-center container bg-white mt-5 pb-5">
         <div class="d-flex justify-center">
             <% if current_teacher.id == @teacher.id %>
-                <%= button_to 'ログアウト', teacher_path(@teacher.id), class: 'btn__half btn__delete', method: :delete %>
+                <% @plans.each do |plan| %>
+                    <li><%= link_to plan.name, plan_path(plan.id) %>:<%= l plan.start_time %></li>
+                <% end %>
+                <%= button_to 'ログアウト', teacher_path(@teacher.id), class: 'btn__half btn__delete mt-30', method: :delete %>
             <% end %>
         </div> 
     </div>

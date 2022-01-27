@@ -8,7 +8,8 @@
     <div class="text-center container bg-white mt-5 pb-5">
         <div class="d-flex justify-center">
             <% if current_user.id == @user.id %>
-                <%= button_to 'ログアウト', user_path(@user.id), class: 'btn__half btn__delete', method: :delete %>
+                <%= link_to '編集', edit_user_path(@user.id), class: 'btn__half btn__update' %>
+                <%= button_to 'ログアウト', user_path(@user.id), class: 'btn__half btn__delete mt-30', method: :delete %>
             <% end %>
         </div> 
     </div>

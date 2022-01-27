@@ -25,6 +25,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find_by(id: params[:id])
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    if @user && @user.authenticate(params[:user][:password])
+      if @user.update(user_params) 
+        redirect_to @user
+      else
+        redirect_to edit_user_url, flash: {
+          errors: ['invalid email']
+        }
+      end
+    else
+      redirect_to edit_user_url, flash: {
+        errors: ['invalid password']
+      }
+    end
+  end
+
   def destroy
     session[:user_id] = nil
     @current_user = nil

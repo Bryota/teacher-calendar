@@ -20,6 +20,7 @@
             <%= f.hidden_field :name, :value => @user.name %>
             <%= f.hidden_field :start_time, :value => DateTime.parse(@date) %>
             <%= f.hidden_field :teacher_id, :value => @teacher_id %>
+            <%= f.hidden_field :user_id, :value => @user.id %>
             <%= f.submit '予約', class: 'btn btn__reserve' %>
         <% end %>
     </div>

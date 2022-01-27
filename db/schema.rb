@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_24_140527) do
+ActiveRecord::Schema.define(version: 2022_01_27_125256) do
 
   create_table "plans", force: :cascade do |t|
     t.string "name"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_140527) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "teacher_id"
+    t.integer "user_id"
+    t.index ["start_time", "teacher_id"], name: "index_plans_on_start_time_and_teacher_id", unique: true
   end
 
   create_table "teachers", force: :cascade do |t|

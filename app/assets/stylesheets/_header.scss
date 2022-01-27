@@ -1,5 +1,13 @@
 .header {
     &__title {
         font-size: 30px;
+
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #000;
+        }
     }
 }

@@ -11,6 +11,7 @@ class TeachersController < ApplicationController
 
   def show
     @teacher = Teacher.find_by(id: params[:id])
+    @plans = Plan.where(teacher_id: params[:id])
   end
 
   def create

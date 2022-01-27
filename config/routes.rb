@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/', to: "plans#all"
+  get '/', to: "plans#all", as: 'root'
   get '/login', to: "auth#login"
   get '/teachers/login', to: "auth#login_teacher"
   post 'login', to: "auth#check_user"
