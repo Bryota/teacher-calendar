@@ -7,6 +7,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+    @plans = Plan.where(user_id: params[:id]).where('start_time > ?', Date.today)
+    @today_plans = @plans.where('start_time < ?', Date.current.next_day)
   end
 
   def new
@@ -36,7 +38,7 @@ class UsersController < ApplicationController
         redirect_to @user
       else
         redirect_to edit_user_url, flash: {
-          errors: ['invalid email']
+          errors: ['invalid name']
         }
       end
     else

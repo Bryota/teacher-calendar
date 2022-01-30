@@ -9,6 +9,13 @@
                 <% @plans.each do |plan| %>
                     <li><%= link_to plan.name, plan_path(plan.id) %>:<%= l plan.start_time %></li>
                 <% end %>
+                <% if @today_plans %>
+                    <p class="mt-30">今日の予定</p>
+                    <% @today_plans.each do |plan| %>
+                        <p><%= link_to plan.name, plan_path(plan.id) %>:<%= l plan.start_time %></p>
+                    <% end %>
+                <% end %>
+                <%= link_to '編集', edit_teacher_path(@teacher.id), class: 'btn__half btn__update mt-30' %>
                 <%= button_to 'ログアウト', teacher_path(@teacher.id), class: 'btn__half btn__delete mt-30', method: :delete %>
             <% end %>
         </div> 

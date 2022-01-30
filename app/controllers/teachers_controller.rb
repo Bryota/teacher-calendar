@@ -11,7 +11,8 @@ class TeachersController < ApplicationController
 
   def show
     @teacher = Teacher.find_by(id: params[:id])
-    @plans = Plan.where(teacher_id: params[:id])
+    @plans = Plan.where(teacher_id: params[:id]).where('start_time > ?', Date.today)
+    @today_plans = @plans.where('start_time < ?', Date.current.next_day)
   end
 
   def create
@@ -22,6 +23,27 @@ class TeachersController < ApplicationController
     else
       redirect_to new_teacher_path, flash: {
         errors: @teacher.errors.full_messages
+      }
+    end
+  end
+
+  def edit
+    @teacher = Teacher.find_by(id: params[:id])
+  end
+
+  def update
+    @teacher = Teacher.find_by(id: params[:id])
+    if @teacher && @teacher.authenticate(params[:teacher][:password])
+      if @teacher.update(teacher_params)
+        redirect_to @teacher
+      else
+        redirect_to edit_teacher_url, flash: {
+          errors: ['invalid name']
+        }
+      end
+    else
+      redirect_to edit_teacher_url, flash: {
+        errors: ['invalid password']
       }
     end
   end
