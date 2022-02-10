@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
   before_action :check_log_in_as_user, except:[:new, :create]
   before_action :current_user, except:[:new]
+  before_action :get_user, only:[:show, :edit, :update]
+
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find_by(id: params[:id])
-    @plans = Plan.where(user_id: params[:id]).where('start_time > ?', Date.today)
+    @plans = UserPlanSearchService.new.call(current_user)
     @today_plans = @plans.where('start_time < ?', Date.current.next_day)
   end
 
@@ -28,11 +29,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find_by(id: params[:id])
   end
 
   def update
-    @user = User.find_by(id: params[:id])
     if @user && @user.authenticate(params[:user][:password])
       if @user.update(user_params) 
         redirect_to @user
@@ -57,5 +56,9 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def get_user
+      @user = User.find_by(id: params[:id])
     end
 end

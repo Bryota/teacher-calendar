@@ -1,6 +1,7 @@
 class TeachersController < ApplicationController
   before_action :check_log_in_as_teacher, except:[:new, :create]
   before_action :current_teacher
+  before_action :get_teacher, only:[:show, :edit, :update]
   def index
     @teachers = Teacher.all
   end
@@ -10,8 +11,7 @@ class TeachersController < ApplicationController
   end
 
   def show
-    @teacher = Teacher.find_by(id: params[:id])
-    @plans = Plan.where(teacher_id: params[:id]).where('start_time > ?', Date.today)
+    @plans = TeacherPlanSearchService.new.call(current_teacher)
     @today_plans = @plans.where('start_time < ?', Date.current.next_day)
   end
 
@@ -28,11 +28,9 @@ class TeachersController < ApplicationController
   end
 
   def edit
-    @teacher = Teacher.find_by(id: params[:id])
   end
 
   def update
-    @teacher = Teacher.find_by(id: params[:id])
     if @teacher && @teacher.authenticate(params[:teacher][:password])
       if @teacher.update(teacher_params)
         redirect_to @teacher
@@ -57,5 +55,9 @@ class TeachersController < ApplicationController
   private
     def teacher_params
       params.require(:teacher).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def get_teacher
+      @teacher = Teacher.find_by(id: params[:id])
     end
 end

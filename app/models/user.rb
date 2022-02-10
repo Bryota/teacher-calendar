@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     attr_accessor :reset_token
+    has_many :plans
     validates :name, presence: true
     validates :email, presence: true, uniqueness: true
     has_secure_password

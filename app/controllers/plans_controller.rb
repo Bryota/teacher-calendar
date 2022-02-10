@@ -3,6 +3,7 @@ class PlansController < ApplicationController
   before_action :check_log_in_user_or_teacher, only:[:index, :all, :show]
   before_action :current_user, only:[:new, :create, :edit, :update, :delete]
   before_action :current_teacher
+  before_action :get_plan, only:[:show, :edit, :update]
   def all
     @teachers = Teacher.all
   end
@@ -21,15 +22,10 @@ class PlansController < ApplicationController
   end
 
   def show
-    @plan = Plan.find_by(id: params[:id])
-    if logged_in?
-      @user = @current_user
-    end
   end
 
   def new
     @plan = Plan.new
-    @user = @current_user
     @date = params[:date]
     @teacher_id = params[:teacher_id]
     if !Plan.find_by(start_time: DateTime.parse(@date), teacher_id: @teacher_id.to_i).nil?
@@ -49,12 +45,9 @@ class PlansController < ApplicationController
   end
 
   def edit
-    @plan = Plan.find_by(id: params[:id])
-    @user = @current_user
   end
 
   def update
-    @plan = Plan.find_by(id: params[:id])
     if @plan.update(plan_params)
       redirect_to plans_path(teacher_id: params[:plan][:teacher_id])
     else
@@ -71,8 +64,11 @@ class PlansController < ApplicationController
   end
 
   private
+    def plan_params
+      params.require(:plan).permit(:name, :title, :place, :content, :start_time, :teacher_id, :user_id)
+    end
 
-  def plan_params
-    params.require(:plan).permit(:name, :title, :place, :content, :start_time, :teacher_id, :user_id)
-  end
+    def get_plan
+      @plan = Plan.find_by(id: params[:id])
+    end
 end

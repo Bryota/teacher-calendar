@@ -17,7 +17,7 @@
                 <%= f.label :content, '相談詳細'%>
                 <%= f.text_area :content, class: 'form-control', rows: 10 %>
             </div>
-            <%= f.hidden_field :name, :value => @user.name %>
+            <%= f.hidden_field :name, :value => current_user.name %>
             <%= f.hidden_field :start_time, :value => @plan.start_time %>
             <%= f.hidden_field :teacher_id, :value => @plan.teacher_id %>
             <%= f.submit '更新', class: 'btn btn__update' %>
