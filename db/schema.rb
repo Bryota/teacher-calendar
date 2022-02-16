@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_30_040017) do
+ActiveRecord::Schema.define(version: 2022_02_15_131302) do
 
   create_table "plans", force: :cascade do |t|
     t.string "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_01_30_040017) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "teacher_id"
     t.integer "user_id"
+    t.boolean "canceled"
     t.index ["start_time", "teacher_id"], name: "index_plans_on_start_time_and_teacher_id", unique: true
   end
 
@@ -34,6 +35,18 @@ ActiveRecord::Schema.define(version: 2022_01_30_040017) do
     t.string "reset_digest"
     t.string "reset_sent_at"
     t.index ["email"], name: "index_teachers_on_email", unique: true
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at", precision: 6
+    t.datetime "remember_created_at", precision: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_tests_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_tests_on_reset_password_token", unique: true
   end
 
   create_table "users", force: :cascade do |t|

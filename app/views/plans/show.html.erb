@@ -13,5 +13,12 @@
             <%= button_to '削除', plan_path(@plan.id), class: 'btn__half btn__delete', method: :delete %>
         </div> 
         <% end %>
+        <% if logged_in_as_teacher? && current_teacher.id == @plan.teacher_id %>
+        <div class="d-flex justify-center">
+            <%= form_with url: cancel_plan_path(@plan.id) do |f| %>
+            <%= f.submit 'キャンセル', class: 'btn btn__delete' %>
+            <% end %>
+        </div> 
+        <% end %>
     </div>
 </div>

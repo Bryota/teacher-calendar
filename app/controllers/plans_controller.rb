@@ -1,9 +1,10 @@
 class PlansController < ApplicationController
-  before_action :check_log_in_as_user, except:[:index, :all, :show]
-  before_action :check_log_in_user_or_teacher, only:[:index, :all, :show]
+  before_action :check_log_in_as_user, except:[:index, :all, :show, :cancel]
+  before_action :check_log_in_user_or_teacher, only:[:index, :all, :show,]
   before_action :current_user, only:[:new, :create, :edit, :update, :delete]
   before_action :current_teacher
-  before_action :get_plan, only:[:show, :edit, :update]
+  before_action :get_plan, only:[:show, :edit, :update, :cancel]
+
   def all
     @teachers = Teacher.all
   end
@@ -63,9 +64,15 @@ class PlansController < ApplicationController
     redirect_to plans_path(teacher_id: plan.teacher_id)
   end
 
+  def cancel
+    authorize @plan
+    @plan.update(canceled: true)
+    redirect_to plans_path(teacher_id: @plan.teacher_id)
+  end
+
   private
     def plan_params
-      params.require(:plan).permit(:name, :title, :place, :content, :start_time, :teacher_id, :user_id)
+      params.require(:plan).permit(:name, :title, :place, :content, :start_time, :teacher_id, :user_id, :canceled)
     end
 
     def get_plan

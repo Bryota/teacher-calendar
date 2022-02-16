@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :tests
   get 'password_resets/new'
   get 'password_resets/edit'
   get '/', to: "plans#all", as: 'root'
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
   get '/teachers/login', to: "auth#login_teacher"
   post 'login', to: "auth#check_user"
   post '/teachers/login', to: "auth#check_teacher"
+  post '/plans/:id/cancel', to: "plans#cancel", as: 'cancel_plan'
   resources :users
   resources :plans
   resources :teachers

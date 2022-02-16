@@ -8,6 +8,8 @@ gem "rails", "~> 7.0.1"
 gem 'bootstrap-sass', '3.4.1'
 gem 'simple_calendar', '~> 2.0'
 gem 'bcrypt', '3.1.13'
+gem 'devise'
+gem 'pundit'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
