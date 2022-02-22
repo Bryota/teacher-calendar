@@ -10,6 +10,7 @@ gem 'simple_calendar', '~> 2.0'
 gem 'bcrypt', '3.1.13'
 gem 'devise'
 gem 'pundit'
+gem 'draper'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

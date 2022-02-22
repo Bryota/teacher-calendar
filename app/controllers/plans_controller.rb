@@ -76,6 +76,6 @@ class PlansController < ApplicationController
     end
 
     def get_plan
-      @plan = Plan.find_by(id: params[:id])
+      @plan = Plan.find_by(id: params[:id]).decorate
     end
 end
