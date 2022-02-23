@@ -46,6 +46,7 @@ class PlansController < ApplicationController
   end
 
   def edit
+    @plan = Plan.find_by(id: params[:id])
   end
 
   def update

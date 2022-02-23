@@ -4,8 +4,8 @@
     </div>
     <div class="text-center container bg-white mt-5 pb-5">
         <p class="show__name"><%= @plan.name %></p>
-        <p class="show__place">@<%= placeToString @plan.place %></p>
-        <p class="show__title"><%= titleToString @plan.title %></p>
+        <p class="show__place">@<%= @plan.place %></p>
+        <p class="show__title"><%= @plan.title %></p>
         <p class="show__content"><%= @plan.content %></p>
         <% if logged_in? && current_user.id == @plan.user_id %>
         <div class="d-flex justify-center">

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @plans = UserPlanSearchService.new.call(current_user)
+    @plans = UserDecorator.decorate_collection(UserPlanSearchService.new.call(current_user))
     @today_plans = @plans.where('start_time < ?', Date.current.next_day)
   end
 
